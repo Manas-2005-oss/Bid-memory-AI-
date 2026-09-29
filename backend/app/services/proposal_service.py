@@ -13,26 +13,16 @@ def generate_proposal(
 ) -> dict:
 
     prompt = f"""
-You are an enterprise proposal-writing assistant.
-
-Generate a proposal plan using ONLY the supplied RFP analysis
+Generate a concise enterprise proposal using ONLY the supplied RFP analysis
 and historical BidMemory.
 
-DO NOT invent:
-- client facts
-- project facts
-- deadlines
-- certifications
-- pricing
-- previous projects
-- technologies not supported by the input
+Do not invent client facts, deadlines, certifications, pricing, projects,
+technologies, or other unsupported information.
 
-If information is unavailable, say:
+If information is unavailable, use:
 "Additional information is required."
 
-Return ONLY valid JSON.
-
-The JSON MUST contain exactly these fields:
+Return ONLY valid JSON with exactly these fields:
 
 {{
   "executive_summary": "string",
@@ -47,12 +37,12 @@ The JSON MUST contain exactly these fields:
   "recommendations": ["string"]
 }}
 
-IMPORTANT:
-- executive_summary MUST be a STRING, never an array.
-- Every other field MUST be an ARRAY of STRINGS.
-- Include every field.
+Rules:
+- executive_summary must be a string.
+- All other fields must be arrays of strings.
+- Keep each array concise.
 - Do not use markdown.
-- Do not add extra fields.
+- Do not add fields.
 
 RFP ANALYSIS:
 {json.dumps(rfp_analysis, ensure_ascii=False)}
@@ -67,10 +57,7 @@ HISTORICAL BID MEMORY:
         messages=[
             {
                 "role": "system",
-                "content": (
-                    "Return only valid JSON. "
-                    "Follow the requested field types exactly."
-                )
+                "content": "Return only valid JSON matching the requested structure."
             },
             {
                 "role": "user",
@@ -83,20 +70,17 @@ HISTORICAL BID MEMORY:
         },
 
         temperature=0,
-        max_tokens=3000
+        max_tokens=1600
     )
 
     content = response.choices[0].message.content
 
     if not content:
-        raise RuntimeError("Proposal generation returned empty response.")
+        raise RuntimeError(
+            "Proposal generation returned empty response."
+        )
 
     proposal = json.loads(content)
-
-    # --------------------------------------------------
-    # Normalize output so frontend always receives
-    # the same structure
-    # --------------------------------------------------
 
     array_fields = [
         "understanding_of_requirements",
@@ -110,19 +94,15 @@ HISTORICAL BID MEMORY:
         "recommendations",
     ]
 
-    # executive_summary must be a string
     summary = proposal.get("executive_summary", "")
 
     if isinstance(summary, list):
         summary = " ".join(str(x) for x in summary)
-
     elif not isinstance(summary, str):
         summary = str(summary)
 
     proposal["executive_summary"] = summary
 
-
-    # Every remaining field must be a list
     for field in array_fields:
 
         value = proposal.get(field)
@@ -138,7 +118,6 @@ HISTORICAL BID MEMORY:
         elif not isinstance(value, list):
             proposal[field] = [str(value)]
 
-        # Make sure list items are strings
         proposal[field] = [
             str(item) for item in proposal[field]
         ]

@@ -29,7 +29,7 @@ class HindsightService:
         result = await self.client.arecall(
             bank_id=self.bank_id,
             query=query,
-            budget="mid",
+            budget="low",
         )
 
         return [
@@ -45,7 +45,7 @@ class HindsightService:
         result = await self.client.areflect(
             bank_id=self.bank_id,
             query=query,
-            budget="mid",
+            budget="low",
         )
 
         return {

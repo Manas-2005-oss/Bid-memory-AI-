@@ -27,29 +27,30 @@ class BidMemoryAgent:
             []
         )
 
+        # Keep requirements small to reduce token usage
+        requirements = requirements[:10]
+
         # -----------------------------------------
         # STEP 1: Recall relevant historical bids
         # -----------------------------------------
 
         recall_query = f"""
-        Find historical bid experiences relevant to this new RFP.
+Find relevant historical bid experiences.
 
-        RFP:
-        {title}
+Title: {title}
+Industry: {industry}
+Requirements: {requirements}
 
-        Industry:
-        {industry}
+Focus on:
+- similar projects
+- successful approaches
+- risks
+- lessons learned
+- implementation strategies
 
-        Mandatory requirements:
-        {requirements}
-
-        Focus on:
-        - similar projects
-        - successful approaches
-        - risks
-        - lessons learned
-        - implementation strategies
-        """
+Return only the most relevant information.
+Keep the response concise.
+"""
 
         memories = await recall_bid_memory(
             recall_query
@@ -60,35 +61,38 @@ class BidMemoryAgent:
         # -----------------------------------------
 
         reflection_query = f"""
-        A new RFP titled "{title}" is being prepared
-        for the {industry} industry.
+Analyze historical bid experiences relevant to this RFP.
 
-        Mandatory requirements:
-        {requirements}
+Title: {title}
+Industry: {industry}
+Requirements: {requirements}
 
-        Based on the historical bid experiences stored
-        in BidMemory, identify the lessons that are
-        relevant to this RFP.
+Identify:
 
-        Explain:
+1. Useful previous approaches
+2. Important risks
+3. Reusable implementation strategies
+4. Requirements needing special attention
 
-        1. What previous approaches worked
-        2. What risks should be considered
-        3. What implementation strategies could be reused
-        4. What requirements deserve special attention
-
-        Base the answer on the retrieved historical
-        experiences rather than inventing historical facts.
-        """
+Use only retrieved historical information.
+Do not invent facts.
+Keep the response concise.
+"""
 
         reflection = await reflect_bid_memory(
             reflection_query
         )
 
-        relevant_cases = find_relevant_cases(industry)
+        # -----------------------------------------
+        # STEP 3: Find relevant historical cases
+        # -----------------------------------------
+
+        relevant_cases = find_relevant_cases(
+            industry
+        )
 
         # -----------------------------------------
-        # STEP 3: Return agent result
+        # STEP 4: Return BidMemory result
         # -----------------------------------------
 
         return {
