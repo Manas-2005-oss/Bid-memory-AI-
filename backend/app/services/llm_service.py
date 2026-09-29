@@ -136,7 +136,7 @@ Identify:
         },
 
         temperature=0,
-        max_tokens=1200
+        max_tokens=2300
     )
 
     content = response.choices[0].message.content
