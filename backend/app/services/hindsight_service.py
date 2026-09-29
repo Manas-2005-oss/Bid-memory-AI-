@@ -1,141 +1,122 @@
-import json
-from groq import Groq
+import os
+from dotenv import load_dotenv
+from hindsight_client import Hindsight
 
-from app.core.config import GROQ_API_KEY
-
-
-client = Groq(api_key=GROQ_API_KEY)
+load_dotenv()
 
 
-def analyze_rfp(rfp_text: str) -> dict:
+class HindsightService:
 
-    # Limit input size to reduce token usage
-    rfp_text = rfp_text[:12000]
+    def __init__(self):
+        self.client = Hindsight(
+            base_url=os.getenv(
+                "HINDSIGHT_API_URL",
+                "https://api.hindsight.vectorize.io"
+            ),
+            api_key=os.getenv("HINDSIGHT_API_KEY"),
+        )
 
-    response = client.chat.completions.create(
-        model="openai/gpt-oss-20b",
-        messages=[
+        self.bank_id = os.getenv("HINDSIGHT_BANK_ID")
+
+    async def retain(self, content: str, context: str = "BidMemory"):
+        return await self.client.aretain(
+            bank_id=self.bank_id,
+            content=content,
+            context=context,
+        )
+
+    async def recall(self, query: str):
+        result = await self.client.arecall(
+            bank_id=self.bank_id,
+            query=query,
+            budget="low",
+        )
+
+        return [
             {
-                "role": "system",
-                "content": """
-You are an expert RFP analysis assistant.
-
-Analyze the provided RFP and extract only information
-explicitly present in the document.
-
-Do not invent missing information.
-If something is not present, return an empty string or empty list.
-
-Identify:
-- RFP title
-- RFP ID
-- organization
-- industry
-- deadline
-- project duration
-- contract type
-- project background
-- scope of work
-- mandatory requirements
-- evaluation criteria
-- expected proposal sections
-- important risks or constraints
-"""
-            },
-            {
-                "role": "user",
-                "content": rfp_text
+                "text": memory.text,
+                "type": memory.type,
+                "score": getattr(memory, "score", None),
             }
-        ],
-        response_format={
-            "type": "json_schema",
-            "json_schema": {
-                "name": "rfp_analysis",
-                "strict": True,
-                "schema": {
-                    "type": "object",
-                    "properties": {
-                        "title": {
-                            "type": "string"
-                        },
-                        "rfp_id": {
-                            "type": "string"
-                        },
-                        "organization": {
-                            "type": "string"
-                        },
-                        "industry": {
-                            "type": "string"
-                        },
-                        "deadline": {
-                            "type": "string"
-                        },
-                        "project_duration": {
-                            "type": "string"
-                        },
-                        "contract_type": {
-                            "type": "string"
-                        },
-                        "background": {
-                            "type": "string"
-                        },
-                        "scope_of_work": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        },
-                        "mandatory_requirements": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        },
-                        "evaluation_criteria": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        },
-                        "proposal_sections": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        },
-                        "risks_constraints": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "required": [
-                        "title",
-                        "rfp_id",
-                        "organization",
-                        "industry",
-                        "deadline",
-                        "project_duration",
-                        "contract_type",
-                        "background",
-                        "scope_of_work",
-                        "mandatory_requirements",
-                        "evaluation_criteria",
-                        "proposal_sections",
-                        "risks_constraints"
-                    ],
-                    "additionalProperties": False
-                }
-            }
-        },
-        temperature=0,
-        max_tokens=1200
-    )
+            for memory in result.results
+        ]
 
-    content = response.choices[0].message.content
+    async def reflect(self, query: str):
+        result = await self.client.areflect(
+            bank_id=self.bank_id,
+            query=query,
+            budget="low",
+        )
 
-    if not content:
-        raise RuntimeError("RFP analysis returned empty response.")
+        return {
+            "answer": result.text,
+            "based_on": [
+                memory.text
+                for memory in (
+                    result.based_on.memories
+                    if result.based_on
+                    else []
+                )
+            ],
+        }
 
-    return json.loads(content)
+    async def close(self):
+        await self.client.aclose()
+
+
+# --------------------------------------------------
+# Module-level functions
+# -------------------------------------------------
+
+async def retain_memory(
+    content: str,
+    context: str = "BidMemory"
+):
+    service = HindsightService()
+
+    try:
+        return await service.retain(
+            content=content,
+            context=context,
+        )
+    finally:
+        await service.close()
+
+
+async def recall_memory(query: str):
+    service = HindsightService()
+
+    try:
+        return await service.recall(query)
+    finally:
+        await service.close()
+
+
+async def reflect_memory(query: str):
+    service = HindsightService()
+
+    try:
+        return await service.reflect(query)
+    finally:
+        await service.close()
+
+
+def create_memory_bank():
+    """
+    BidMemory bank is already created in Hindsight.
+    This endpoint simply verifies the configured bank.
+    """
+
+    bank_id = os.getenv("HINDSIGHT_BANK_ID")
+
+    if not bank_id:
+        return {
+            "status": "error",
+            "message": "HINDSIGHT_BANK_ID is not configured"
+        }
+
+    return {
+        "status": "success",
+        "message": "BidMemory Hindsight bank is configured",
+        "bank_id": bank_id
+    }
