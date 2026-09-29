@@ -5,13 +5,11 @@ from app.api.memory import router as memory_router
 from app.api.rfp import router as rfp_router
 from app.api.proposal import router as proposal_router
 
-
 app = FastAPI(
     title="BidMemory API",
     description="AI-powered RFP Response Agent",
-    version="1.0.0",
+    version="1.0.0"
 )
-
 
 app.add_middleware(
     CORSMiddleware,
@@ -24,7 +22,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 app.include_router(rfp_router)
 app.include_router(memory_router)
 app.include_router(proposal_router)
@@ -34,5 +31,5 @@ app.include_router(proposal_router)
 def health_check():
     return {
         "status": "ok",
-        "service": "BidMemory Backend",
+        "service": "BidMemory Backend"
     }
