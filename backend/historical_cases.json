@@ -1,0 +1,167 @@
+[
+  {
+    "case_id": "case_01",
+    "title": "Healthcare Cloud Migration",
+    "industry": "Healthcare",
+    "technology": [
+      "Microsoft Azure",
+      "Cloud Migration",
+      "Security",
+      "Disaster Recovery"
+    ],
+    "outcome": "Successful",
+    "key_requirements": [
+      "High availability",
+      "Healthcare data protection",
+      "Disaster recovery",
+      "24/7 support"
+    ],
+    "successful_approaches": [
+      "Detailed security architecture",
+      "Clear migration timeline",
+      "Disaster recovery planning",
+      "Compliance-focused implementation"
+    ],
+    "lessons_learned": [
+      "Make security requirements highly visible",
+      "Connect architecture decisions to business outcomes",
+      "Provide clear implementation milestones"
+    ],
+    "risks": [
+      "Data migration disruption",
+      "Compliance issues",
+      "Service downtime"
+    ]
+  },
+  {
+    "case_id": "case_02",
+    "title": "Banking Cloud Modernization",
+    "industry": "Banking",
+    "technology": [
+      "Cloud",
+      "API Integration",
+      "Microservices",
+      "Security"
+    ],
+    "outcome": "Successful",
+    "key_requirements": [
+      "Security",
+      "High availability",
+      "API integration",
+      "Regulatory compliance"
+    ],
+    "successful_approaches": [
+      "Modular architecture",
+      "API-based integration",
+      "Phased migration"
+    ],
+    "lessons_learned": [
+      "Use modular services to reduce migration risk",
+      "Plan integration carefully",
+      "Make compliance requirements explicit"
+    ],
+    "risks": [
+      "Legacy system integration",
+      "Security vulnerabilities",
+      "Migration downtime"
+    ]
+  },
+  {
+    "case_id": "case_03",
+    "title": "Government Smart City Platform",
+    "industry": "Government",
+    "technology": [
+      "Modular Services",
+      "API Integration",
+      "Data Integration",
+      "Operational Monitoring"
+    ],
+    "outcome": "Successful",
+    "key_requirements": [
+      "City service integration",
+      "Data integration",
+      "Operational monitoring",
+      "Multi-department coordination"
+    ],
+    "successful_approaches": [
+      "Modular services",
+      "API-based integrations",
+      "Phased rollout by department"
+    ],
+    "lessons_learned": [
+      "Translate technical architecture into measurable outcomes",
+      "Use phased rollouts for multi-stakeholder projects",
+      "Keep training and documentation visible"
+    ],
+    "risks": [
+      "Multiple stakeholder dependencies",
+      "Integration complexity",
+      "Change management"
+    ]
+  },
+  {
+    "case_id": "case_04",
+    "title": "Education Digital Platform",
+    "industry": "Education",
+    "technology": [
+      "Cloud Platform",
+      "Web Applications",
+      "API Integration"
+    ],
+    "outcome": "Successful",
+    "key_requirements": [
+      "Scalability",
+      "User management",
+      "Data security",
+      "Platform availability"
+    ],
+    "successful_approaches": [
+      "Incremental implementation",
+      "User-focused design",
+      "Clear documentation"
+    ],
+    "lessons_learned": [
+      "Prioritize user adoption",
+      "Provide training and documentation",
+      "Release features incrementally"
+    ],
+    "risks": [
+      "Low user adoption",
+      "Integration problems",
+      "Training gaps"
+    ]
+  },
+  {
+    "case_id": "case_05",
+    "title": "Retail ERP Transformation",
+    "industry": "Retail",
+    "technology": [
+      "ERP",
+      "Cloud",
+      "API Integration",
+      "Data Migration"
+    ],
+    "outcome": "Successful",
+    "key_requirements": [
+      "ERP integration",
+      "Data migration",
+      "Business continuity",
+      "Operational support"
+    ],
+    "successful_approaches": [
+      "Phased migration",
+      "Modular architecture",
+      "Data validation"
+    ],
+    "lessons_learned": [
+      "Validate migrated data carefully",
+      "Reduce disruption through phased implementation",
+      "Define operational support before deployment"
+    ],
+    "risks": [
+      "Data migration errors",
+      "Business disruption",
+      "Legacy system dependencies"
+    ]
+  }
+]

@@ -1,0 +1,28 @@
+# Environment
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Temporary
+tmp/
+temp/
+
+# Secrets / credentials
+*.pem
+*.key
+
+# Uploaded/generated documents
+uploads/
+outputs/
+generated/
+git status --ignored

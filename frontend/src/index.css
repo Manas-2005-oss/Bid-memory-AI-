@@ -1,0 +1,865 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* =========================================================
+   BID-MEMORY — GLOBAL VISUAL SYSTEM
+   ========================================================= */
+
+:root {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  color: #111318;
+  background: #f4f3ee;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #f4f3ee;
+  color: #111318;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: #315cff;
+  color: white;
+}
+
+
+/* =========================================================
+   TYPOGRAPHY
+   ========================================================= */
+
+.display-title {
+  font-size: clamp(4rem, 8vw, 9rem);
+  line-height: 0.86;
+  letter-spacing: -0.08em;
+  font-weight: 500;
+}
+
+.editorial-title {
+  font-size: clamp(3rem, 6vw, 6.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.07em;
+  font-weight: 500;
+}
+
+.page-title {
+  font-size: clamp(3.2rem, 6vw, 7rem);
+  line-height: 0.88;
+  letter-spacing: -0.075em;
+  font-weight: 500;
+}
+
+.section-title {
+  font-size: clamp(2rem, 3.5vw, 4rem);
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   AMBIENT BACKGROUND
+   ========================================================= */
+
+.ambient-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 10% 15%,
+      rgba(49, 92, 255, 0.035),
+      transparent 26%
+    ),
+    radial-gradient(
+      circle at 88% 25%,
+      rgba(91, 214, 232, 0.035),
+      transparent 25%
+    ),
+    #f4f3ee;
+}
+
+.ambient-background-dark {
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(49, 92, 255, 0.18),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(91, 214, 232, 0.12),
+      transparent 28%
+    ),
+    #111318;
+}
+
+
+/* =========================================================
+   GRID
+   ========================================================= */
+
+.ambient-grid {
+  position: absolute;
+  inset: -100px;
+
+  background-image:
+    linear-gradient(
+      rgba(17, 19, 24, 0.028) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(17, 19, 24, 0.028) 1px,
+      transparent 1px
+    );
+
+  background-size: 56px 56px;
+
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 12%,
+    black 82%,
+    transparent
+  );
+
+  animation: grid-drift 35s linear infinite;
+}
+
+@keyframes grid-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(56px, 56px, 0);
+  }
+}
+
+
+/* =========================================================
+   FLOATING ORBS
+   ========================================================= */
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(10px);
+  opacity: 0.28;
+  mix-blend-mode: multiply;
+}
+
+.ambient-orb-one {
+  width: 320px;
+  height: 320px;
+  top: 8%;
+  left: -120px;
+
+  background:
+    radial-gradient(
+      circle at 40% 40%,
+      rgba(49, 92, 255, 0.09),
+      transparent 70%
+    );
+
+  animation: orb-one 18s ease-in-out infinite alternate;
+}
+
+.ambient-orb-two {
+  width: 420px;
+  height: 420px;
+  right: -180px;
+  top: 25%;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(91, 214, 232, 0.08),
+      transparent 70%
+    );
+
+  animation: orb-two 22s ease-in-out infinite alternate;
+}
+
+.ambient-orb-three {
+  width: 280px;
+  height: 280px;
+  bottom: -100px;
+  left: 40%;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(125, 105, 255, 0.055),
+      transparent 70%
+    );
+
+  animation: orb-three 20s ease-in-out infinite alternate;
+}
+
+@keyframes orb-one {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate3d(100px, 70px, 0) scale(1.1);
+  }
+}
+
+@keyframes orb-two {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate3d(-100px, 60px, 0) scale(1.08);
+  }
+}
+
+@keyframes orb-three {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(60px, -60px, 0);
+  }
+}
+
+
+/* =========================================================
+   SOFT LIGHT
+   ========================================================= */
+
+.ambient-glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 999px;
+  filter: blur(110px);
+  opacity: 0.06;
+}
+
+.ambient-glow-one {
+  top: 35%;
+  left: 30%;
+  background: #315cff;
+
+  animation: glow-float 16s ease-in-out infinite alternate;
+}
+
+.ambient-glow-two {
+  right: 10%;
+  bottom: 10%;
+  background: #5bd6e8;
+
+  animation: glow-float 18s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes glow-float {
+  from {
+    transform: translate3d(-40px, 30px, 0);
+  }
+
+  to {
+    transform: translate3d(60px, -40px, 0);
+  }
+}
+
+
+/* =========================================================
+   NOISE
+   ========================================================= */
+
+.ambient-noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.018;
+  pointer-events: none;
+
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+}
+
+
+/* =========================================================
+   PAGE TRANSITION
+   ========================================================= */
+
+.page-enter {
+  animation: page-enter 650ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================================
+   REVEALS
+   ========================================================= */
+
+.reveal {
+  animation: reveal-up 850ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.reveal-delay-1 {
+  animation-delay: 100ms;
+}
+
+.reveal-delay-2 {
+  animation-delay: 200ms;
+}
+
+.reveal-delay-3 {
+  animation-delay: 300ms;
+}
+
+.reveal-delay-4 {
+  animation-delay: 400ms;
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================================
+   EDITORIAL GRID
+   ========================================================= */
+
+.editorial-grid {
+  position: relative;
+
+  background-image:
+    linear-gradient(
+      rgba(17, 19, 24, 0.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(17, 19, 24, 0.03) 1px,
+      transparent 1px
+    );
+
+  background-size: 48px 48px;
+}
+
+
+/* =========================================================
+   BORDERS
+   ========================================================= */
+
+.editorial-border {
+  border-color: #d8d7d1;
+}
+
+
+/* =========================================================
+   LINKS
+   ========================================================= */
+
+.editorial-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.editorial-link::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+
+  height: 1px;
+
+  background: currentColor;
+
+  transform: scaleX(0);
+  transform-origin: right;
+
+  transition:
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.editorial-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
+.editorial-hover {
+  transition:
+    transform 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 300ms ease,
+    background-color 300ms ease;
+}
+
+.editorial-hover:hover {
+  transform: translateY(-4px);
+}
+
+
+/* =========================================================
+   IMPORTANT BUTTON FIX
+   ========================================================= */
+
+.button-shine {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.button-shine::before {
+  content: "";
+
+  position: absolute;
+  z-index: -1;
+
+  top: 0;
+  left: -120%;
+
+  width: 80%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.16),
+      transparent
+    );
+
+  transform: skewX(-20deg);
+
+  transition: left 700ms ease;
+}
+
+.button-shine:hover::before {
+  left: 130%;
+}
+
+/*
+  This makes sure the actual button content
+  ALWAYS stays above the shine layer.
+*/
+
+.button-shine > * {
+  position: relative;
+  z-index: 2;
+}
+
+
+/* =========================================================
+   MEMORY PULSE
+   ========================================================= */
+
+.memory-pulse {
+  position: relative;
+}
+
+.memory-pulse::before {
+  content: "";
+
+  position: absolute;
+  inset: -8px;
+
+  border: 1px solid rgba(49, 92, 255, 0.25);
+  border-radius: 999px;
+
+  animation: memory-ring 3s ease-out infinite;
+}
+
+@keyframes memory-ring {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.85);
+  }
+
+  70% {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+}
+
+
+/* =========================================================
+   PROGRESS
+   ========================================================= */
+
+.progress-line {
+  position: relative;
+  overflow: hidden;
+
+  height: 2px;
+
+  background: #deded8;
+}
+
+.progress-line-fill {
+  position: relative;
+
+  height: 100%;
+
+  background: #315cff;
+
+  transform-origin: left;
+
+  animation:
+    progress-grow
+    1200ms
+    cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes progress-grow {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+
+/* =========================================================
+   AI SCAN
+   ========================================================= */
+
+.ai-scan {
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-scan::after {
+  content: "";
+
+  position: absolute;
+
+  z-index: 1;
+
+  left: 0;
+  right: 0;
+  top: -10%;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #315cff,
+      #5bd6e8,
+      transparent
+    );
+
+  opacity: 0;
+
+  animation: ai-scan-line 5s ease-in-out infinite;
+
+  pointer-events: none;
+}
+
+@keyframes ai-scan-line {
+  0% {
+    top: -10%;
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.8;
+  }
+
+  70% {
+    opacity: 0.5;
+  }
+
+  100% {
+    top: 110%;
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
+.editorial-input {
+  width: 100%;
+
+  border: 0;
+  border-bottom: 1px solid #cfcfc8;
+
+  background: transparent;
+
+  padding: 14px 0;
+
+  color: #111318;
+
+  outline: none;
+
+  transition:
+    border-color 300ms ease,
+    padding-left 300ms ease;
+}
+
+.editorial-input::placeholder {
+  color: #9b9c97;
+}
+
+.editorial-input:focus {
+  border-color: #315cff;
+  padding-left: 8px;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c7c8c2;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #aeb0aa;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .ambient-grid {
+    background-size: 40px 40px;
+  }
+
+  .ambient-orb {
+    opacity: 0.2;
+  }
+
+  .display-title {
+    font-size: clamp(3.5rem, 17vw, 6rem);
+  }
+
+  .page-title {
+    font-size: clamp(3rem, 15vw, 5rem);
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* =========================================================
+   BID ACTION BUTTON
+========================================================= */
+
+.bid-open-button {
+  color: #ffffff !important;
+  background: #111318 !important;
+  border-color: #111318 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.bid-open-button-text {
+  color: #ffffff !important;
+  display: inline-block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.bid-open-button-icon {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.bid-open-button:hover {
+  color: #ffffff !important;
+  background: #315cff !important;
+  border-color: #315cff !important;
+}
+
+.bid-open-button:hover .bid-open-button-text {
+  color: #ffffff !important;
+}
+
+.bid-open-button:hover .bid-open-button-icon {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+/* =========================================================
+   BID OPEN BUTTON
+========================================================= */
+
+.bid-open-button {
+  color: #ffffff !important;
+  background: #111318 !important;
+  border-color: #111318 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.bid-open-button-text {
+  color: #ffffff !important;
+  display: inline-block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.bid-open-button-icon {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.bid-open-button:hover {
+  color: #ffffff !important;
+  background: #315cff !important;
+  border-color: #315cff !important;
+}
+
+.bid-open-button:hover .bid-open-button-text {
+  color: #ffffff !important;
+}
+
+.bid-open-button:hover .bid-open-button-icon {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+/* =========================================================
+   BID ACTION BUTTON
+========================================================= */
+
+.bid-open-button {
+  color: #ffffff !important;
+  background: #111318 !important;
+  border-color: #111318 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    transform 200ms ease;
+}
+
+.bid-open-button-text {
+  color: #ffffff !important;
+}
+
+.bid-open-button-icon {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+.bid-open-button:hover {
+  color: #ffffff !important;
+  background: #315cff !important;
+  border-color: #315cff !important;
+  transform: translateY(-1px);
+}
+
+.bid-open-button:hover .bid-open-button-text {
+  color: #ffffff !important;
+}
+
+.bid-open-button:hover .bid-open-button-icon {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}

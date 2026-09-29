@@ -1,0 +1,18 @@
+BidMemory historical memory dataset
+
+These 5 PDFs are synthetic historical cases for the hackathon demo.
+They are intentionally written with requirements + proposal approach + outcome + feedback + lessons.
+
+Recommended folder in your backend:
+backend/data/historical_cases/
+
+Files:
+1. case_01_healthcare_cloud_migration.pdf
+2. case_02_banking_cloud_modernization.pdf
+3. case_03_government_smart_city_platform.pdf
+4. case_04_education_digital_platform.pdf
+5. case_05_retail_erp_transformation.pdf
+
+Upload all 5 to the SAME Hindsight memory bank: BidMemory.
+
+Keep sample_healthcare_rfp.pdf as the current/test RFP. Do not mix it into the historical_cases folder.

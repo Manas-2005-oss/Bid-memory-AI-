@@ -1,0 +1,38 @@
+export const demoKnowledge = [
+  {
+    id: "doc-001",
+    name: "Security Documentation",
+    type: "PDF",
+    category: "Security",
+    size: "2.4 MB",
+    updated: "2026-09-28",
+    chunks: 42,
+  },
+  {
+    id: "doc-002",
+    name: "Product Architecture",
+    type: "PDF",
+    category: "Architecture",
+    size: "1.8 MB",
+    updated: "2026-09-26",
+    chunks: 31,
+  },
+  {
+    id: "doc-003",
+    name: "Implementation Guide",
+    type: "DOCX",
+    category: "Implementation",
+    size: "820 KB",
+    updated: "2026-09-24",
+    chunks: 27,
+  },
+  {
+    id: "doc-004",
+    name: "Customer Support Handbook",
+    type: "PDF",
+    category: "Support",
+    size: "1.1 MB",
+    updated: "2026-09-20",
+    chunks: 24,
+  },
+];
