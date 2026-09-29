@@ -9,6 +9,9 @@ client = Groq(api_key=GROQ_API_KEY)
 
 def analyze_rfp(rfp_text: str) -> dict:
 
+    # Limit RFP input to reduce Groq token usage
+    rfp_text = rfp_text[:12000]
+
     response = client.chat.completions.create(
         model="openai/gpt-oss-20b",
 

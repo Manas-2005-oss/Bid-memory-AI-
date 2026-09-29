@@ -9,7 +9,7 @@ from app.api.proposal import router as proposal_router
 app = FastAPI(
     title="BidMemory API",
     description="AI-powered RFP Response Agent",
-    version="1.0.0"
+    version="1.0.0",
 )
 
 
@@ -17,6 +17,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://bid-memory-ai.vercel.app",
+        "http://localhost:5173",
     ],
     allow_credentials=False,
     allow_methods=["*"],
@@ -33,5 +34,5 @@ app.include_router(proposal_router)
 def health_check():
     return {
         "status": "ok",
-        "service": "BidMemory Backend"
+        "service": "BidMemory Backend",
     }
